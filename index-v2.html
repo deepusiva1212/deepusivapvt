@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deepu Siva Private Limited — Steel &amp; Solar Structures, Coimbatore</title>
+<meta name="description" content="Precision metal fabrication, industrial roofing, solar mounting structures and structural engineering across Tamil Nadu. Est. 2017."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --forge:#080c08;--steel:#111811;--slate:#1a231a;
+  --lime:#a3e635;--lime-dim:rgba(163,230,53,.12);
+  --rust:#f97316;--text:#e8f0e8;--muted:#4a5c4a;
+  --border:rgba(163,230,53,.15);
+  --font-d:'Bebas Neue',sans-serif;
+  --font-b:'Inter',sans-serif;
+  --font-m:'DM Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:auto;}
+body{background:var(--forge);color:var(--text);font-family:var(--font-b);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--lime);color:var(--forge);}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--forge);}
+::-webkit-scrollbar-thumb{background:var(--lime);}
+
+/* PROGRESS */
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--lime),var(--rust));width:0%;z-index:9999;}
+
+/* CURSOR */
+#cursor,#cursor-ring{position:fixed;border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);}
+#cursor{width:8px;height:8px;background:var(--lime);top:0;left:0;}
+#cursor-ring{width:40px;height:40px;border:1px solid rgba(163,230,53,.4);top:0;left:0;transition:width .3s,height .3s,border-color .3s;}
+body.cursor-hover #cursor-ring{width:60px;height:60px;border-color:rgba(163,230,53,.8);}
+@media(hover:none){#cursor,#cursor-ring{display:none;}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s;}
+nav.scrolled{background:rgba(8,12,8,.92);backdrop-filter:blur(16px);padding:14px 40px;border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--font-d);font-size:28px;color:var(--text);letter-spacing:3px;text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-logo .dot{width:8px;height:8px;background:var(--lime);border-radius:50%;animation:pulse-dot 2s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.4);opacity:.6;}}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-family:var(--font-m);font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:2px;text-transform:uppercase;transition:color .3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.nav-links a:hover{color:var(--lime);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{background:var(--lime)!important;color:var(--forge)!important;padding:10px 22px;border-radius:2px;transition:background .2s,transform .2s!important;}
+.nav-cta:hover{background:#c9f55e!important;transform:translateY(-1px);}
+.nav-cta::after{display:none!important;}
+.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+.nav-ham span{display:block;width:24px;height:1.5px;background:var(--text);transition:.3s;}
+
+/* V1 BAR */
+.v1-bar{background:var(--lime-dim);border-bottom:1px solid var(--border);padding:10px 40px;display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--font-m);font-size:10px;color:var(--muted);letter-spacing:1.5px;}
+.v1-bar a{color:var(--lime);text-decoration:none;letter-spacing:1.5px;transition:opacity .2s;}
+.v1-bar a:hover{opacity:.7;}
+
+/* HERO */
+#hero{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:140px 40px 80px;position:relative;overflow:hidden;}
+#hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.4;pointer-events:none;}
+.hero-monogram{position:absolute;font-family:var(--font-d);font-size:clamp(280px,40vw,520px);color:transparent;-webkit-text-stroke:1px rgba(163,230,53,.06);line-height:1;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;white-space:nowrap;}
+.hero-tag{font-family:var(--font-m);font-size:11px;color:var(--lime);letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:24px;opacity:0;}
+.hero-tag::before{content:'';width:32px;height:1px;background:var(--lime);}
+.hero-h1{font-family:var(--font-d);font-size:clamp(72px,12vw,170px);line-height:.9;letter-spacing:-2px;text-transform:uppercase;color:var(--text);margin-bottom:32px;}
+.hero-h1 .line{display:block;overflow:hidden;}
+.hero-h1 .word{display:inline-block;}
+.hero-sub{font-size:clamp(14px,1.5vw,17px);color:var(--muted);max-width:480px;line-height:1.7;margin-bottom:48px;opacity:0;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;}
+.hero-stats{display:flex;gap:48px;flex-wrap:wrap;margin-top:64px;opacity:0;}
+.hero-stat-num{font-family:var(--font-d);font-size:52px;color:var(--lime);line-height:1;}
+.hero-stat-label{font-family:var(--font-m);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.hero-scroll-hint{position:absolute;bottom:48px;left:40px;font-family:var(--font-m);font-size:10px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;gap:10px;opacity:0;}
+.hero-scroll-hint::before{content:'';width:1px;height:48px;background:linear-gradient(transparent,var(--lime));animation:line-grow 2s ease-in-out infinite;}
+@keyframes line-grow{0%,100%{height:24px;opacity:0;}50%{height:48px;opacity:1;}}
+
+/* BUTTONS */
+.btn-primary{background:var(--lime);color:var(--forge);font-family:var(--font-m);font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:16px 36px;border:none;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .3s;position:relative;overflow:hidden;}
+.btn-primary::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);transform:translateX(-100%);transition:transform .3s;}
+.btn-primary:hover::before{transform:translateX(0);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(163,230,53,.3);}
+.btn-outline{background:transparent;color:var(--text);font-family:var(--font-m);font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:16px 36px;border:1px solid var(--border);border-radius:2px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .3s;}
+.btn-outline:hover{border-color:var(--lime);color:var(--lime);transform:translateY(-2px);}
+
+/* MARQUEE */
+.marquee-section{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;overflow:hidden;background:var(--steel);}
+.marquee-track{display:flex;animation:marquee-scroll 22s linear infinite;width:max-content;}
+.marquee-item{font-family:var(--font-d);font-size:14px;letter-spacing:4px;color:var(--muted);padding:0 40px;white-space:nowrap;display:flex;align-items:center;gap:20px;}
+.marquee-item::after{content:'·';color:var(--lime);font-size:20px;}
+@keyframes marquee-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTIONS */
+.section-eyebrow{font-family:var(--font-m);font-size:10px;color:var(--lime);letter-spacing:4px;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.section-eyebrow::before{content:'';width:24px;height:1px;background:var(--lime);}
+.section-h2{font-family:var(--font-d);font-size:clamp(48px,7vw,100px);line-height:.95;letter-spacing:-1px;text-transform:uppercase;color:var(--text);margin-bottom:80px;}
+.section-h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px var(--muted);}
+
+/* SERVICES */
+#services{padding:120px 40px;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+.service-card{background:var(--forge);padding:48px 40px;position:relative;overflow:hidden;transition:background .3s;}
+.service-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform .5s;}
+.service-card:hover{background:var(--slate);}
+.service-card:hover::before{transform:scaleX(1);}
+.svc-num{font-family:var(--font-m);font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:24px;display:block;}
+.svc-icon{width:48px;height:48px;margin-bottom:24px;color:var(--lime);opacity:.7;transition:opacity .3s;}
+.service-card:hover .svc-icon{opacity:1;}
+.svc-name{font-family:var(--font-d);font-size:28px;letter-spacing:1px;color:var(--text);text-transform:uppercase;margin-bottom:12px;line-height:1.1;}
+.svc-desc{font-size:13px;color:var(--muted);line-height:1.7;}
+
+/* ABOUT */
+#about{padding:120px 40px;background:var(--steel);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-desc{font-size:15px;color:var(--muted);line-height:1.8;max-width:440px;margin-bottom:40px;}
+.about-tag{display:inline-flex;align-items:center;gap:8px;background:var(--lime-dim);border:1px solid var(--border);color:var(--lime);font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 18px;border-radius:2px;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+.stat-box{background:var(--slate);padding:48px 40px;position:relative;}
+.stat-box::before{content:attr(data-label);position:absolute;top:16px;right:16px;font-family:var(--font-m);font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+.stat-big{font-family:var(--font-d);font-size:clamp(48px,6vw,72px);color:var(--lime);line-height:1;margin-bottom:6px;}
+.stat-label{font-size:12px;color:var(--muted);letter-spacing:1px;}
+.stat-box:nth-child(2) .stat-big{color:var(--rust);}
+
+/* PROJECTS */
+#projects{padding:120px 40px;}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-top:60px;}
+.proj-card{background:var(--slate);aspect-ratio:4/3;position:relative;overflow:hidden;cursor:pointer;}
+.proj-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px;color:rgba(163,230,53,.08);transition:transform .6s,color .4s;}
+.proj-card:hover .proj-bg{transform:scale(1.05);color:rgba(163,230,53,.12);}
+.proj-card-inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;background:linear-gradient(transparent 30%,rgba(8,12,8,.85) 100%);transition:background .4s;}
+.proj-card:hover .proj-card-inner{background:linear-gradient(transparent 0%,rgba(8,12,8,.92) 100%);}
+.proj-cat{font-family:var(--font-m);font-size:9px;color:var(--lime);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;}
+.proj-name{font-family:var(--font-d);font-size:22px;color:var(--text);text-transform:uppercase;letter-spacing:1px;line-height:1.1;}
+.proj-arrow{position:absolute;top:24px;right:24px;width:36px;height:36px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--lime);opacity:0;transform:rotate(-45deg) scale(.8);transition:all .3s;}
+.proj-card:hover .proj-arrow{opacity:1;transform:rotate(0) scale(1);}
+
+/* SOLAR */
+#solar{padding:120px 40px;background:var(--steel);display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;}
+.solar-h2{font-family:var(--font-d);font-size:clamp(48px,6vw,88px);line-height:.95;color:var(--text);text-transform:uppercase;letter-spacing:-1px;margin:16px 0 36px;}
+.solar-h2 span{color:var(--rust);}
+.solar-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);color:var(--rust);font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 18px;border-radius:2px;}
+.solar-subsidy{background:var(--slate);border:1px solid rgba(249,115,22,.2);border-left:3px solid var(--rust);padding:32px;}
+.subsidy-amount{font-family:var(--font-d);font-size:72px;color:var(--rust);line-height:1;}
+.subsidy-label{font-family:var(--font-m);font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px;}
+.subsidy-note{font-size:13px;color:var(--muted);margin-top:14px;line-height:1.6;}
+.solar-btns{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* CONTACT */
+#contact{padding:120px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.contact-info h2{font-family:var(--font-d);font-size:clamp(48px,6vw,88px);line-height:.95;text-transform:uppercase;letter-spacing:-1px;color:var(--text);margin-bottom:28px;}
+.contact-info h2 em{font-style:normal;color:var(--lime);}
+.contact-item{display:flex;align-items:flex-start;gap:14px;padding:18px 0;border-bottom:1px solid var(--border);}
+.contact-item:first-of-type{border-top:1px solid var(--border);}
+.contact-icon{color:var(--lime);flex-shrink:0;margin-top:2px;}
+.contact-label{font-family:var(--font-m);font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.contact-val{font-size:14px;color:var(--text);}
+.contact-val a{color:var(--text);text-decoration:none;transition:color .2s;}
+.contact-val a:hover{color:var(--lime);}
+.form-group{margin-bottom:16px;}
+.form-label{font-family:var(--font-m);font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:8px;}
+.form-input{width:100%;background:var(--slate);border:1px solid var(--border);color:var(--text);font-family:var(--font-b);font-size:16px;padding:14px 16px;border-radius:2px;outline:none;transition:border-color .3s;}
+.form-input:focus{border-color:var(--lime);}
+.form-input::placeholder{color:var(--muted);}
+textarea.form-input{resize:vertical;min-height:120px;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.foot-logo{font-family:var(--font-d);font-size:24px;letter-spacing:3px;color:var(--text);text-decoration:none;}
+.foot-copy{font-family:var(--font-m);font-size:10px;color:var(--muted);letter-spacing:1px;}
+.foot-links{display:flex;gap:24px;list-style:none;}
+.foot-links a{font-family:var(--font-m);font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s;}
+.foot-links a:hover{color:var(--lime);}
+
+/* REVEAL UTILS */
+.reveal{opacity:0;transform:translateY(40px);}
+.reveal-left{opacity:0;transform:translateX(-40px);}
+.reveal-right{opacity:0;transform:translateX(40px);}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:16px 20px;}
+  nav.scrolled{padding:12px 20px;}
+  .nav-links{display:none;flex-direction:column;position:fixed;inset:0;background:var(--forge);align-items:center;justify-content:center;gap:40px;z-index:800;}
+  .nav-links.open{display:flex;}
+  .nav-links a{font-size:16px;}
+  .nav-ham{display:flex;}
+  #hero{padding:120px 20px 80px;}
+  .hero-stats{gap:32px;margin-top:48px;}
+  .hero-scroll-hint{display:none;}
+  .hero-monogram{font-size:200px;}
+  #services{padding:80px 20px;}
+  .services-grid{grid-template-columns:1fr;}
+  #about{padding:80px 20px;grid-template-columns:1fr;gap:48px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  #projects{padding:80px 20px;}
+  .projects-grid{grid-template-columns:1fr 1fr;}
+  #solar{padding:80px 20px;grid-template-columns:1fr;}
+  #contact{padding:80px 20px;grid-template-columns:1fr;}
+  footer{padding:28px 20px;}
+  .foot-links{display:none;}
+  .v1-bar{padding:10px 20px;font-size:9px;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<div class="v1-bar">
+  ⚡ PREVIEW V2 — New Design
+  <span style="color:rgba(163,230,53,.2)">|</span>
+  <a href="index.html">← Back to Current Site</a>
+  <span style="color:rgba(163,230,53,.2)">|</span>
+  <a href="tel:+918489090666">+91 84890 90666</a>
+</div>
+
+<nav id="mainNav">
+  <a href="#hero" class="nav-logo"><span class="dot"></span>DS</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="solar-calculator.html">Solar</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="login.html" class="nav-cta">Client Portal</a></li>
+  </ul>
+  <div class="nav-ham" id="navHam" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-monogram" aria-hidden="true">DS</div>
+  <div class="hero-tag">Est. 2017 &nbsp;·&nbsp; Coimbatore, Tamil Nadu</div>
+  <h1 class="hero-h1">
+    <span class="line"><span class="word">Building</span></span>
+    <span class="line"><span class="word" style="color:transparent;-webkit-text-stroke:1px var(--lime);">Stronger</span></span>
+    <span class="line"><span class="word">Structures</span></span>
+  </h1>
+  <p class="hero-sub">Precision metal fabrication, industrial roofing, solar mounting structures and structural engineering across Tamil Nadu since 2017.</p>
+  <div class="hero-btns">
+    <a href="#services" class="btn-primary">Explore Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    <a href="#contact" class="btn-outline">Get Free Quote</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="hero-stat-num" data-count="8">0</div><div class="hero-stat-label">Years Active</div></div>
+    <div><div class="hero-stat-num" data-count="500">0</div><div class="hero-stat-label">Projects Done</div></div>
+    <div><div class="hero-stat-num" data-count="50">0</div><div class="hero-stat-label">Clients Served</div></div>
+  </div>
+  <div class="hero-scroll-hint">Scroll Down</div>
+</section>
+
+<div class="marquee-section" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-item">Metal Fabrication</div><div class="marquee-item">Industrial Roofing</div>
+    <div class="marquee-item">Solar Structures</div><div class="marquee-item">Structural Engineering</div>
+    <div class="marquee-item">PEB Buildings</div><div class="marquee-item">Industrial Construction</div>
+    <div class="marquee-item">Metal Fabrication</div><div class="marquee-item">Industrial Roofing</div>
+    <div class="marquee-item">Solar Structures</div><div class="marquee-item">Structural Engineering</div>
+    <div class="marquee-item">PEB Buildings</div><div class="marquee-item">Industrial Construction</div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="section-eyebrow reveal">What We Do</div>
+  <h2 class="section-h2 reveal">Our<br/><em>Services</em></h2>
+  <div class="services-grid">
+    <div class="service-card"><span class="svc-num">01</span><svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg><div class="svc-name">Metal Fabrication</div><p class="svc-desc">Custom MS, GI and stainless steel fabrication for industrial, commercial and structural applications across Tamil Nadu.</p></div>
+    <div class="service-card"><span class="svc-num">02</span><svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="svc-name">Industrial Roofing</div><p class="svc-desc">Heavy-duty GI sheet roofing systems for factories, warehouses and industrial sheds built to withstand Tamil Nadu monsoons.</p></div>
+    <div class="service-card"><span class="svc-num">03</span><svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><div class="svc-name">Solar Structures</div><p class="svc-desc">Engineered solar panel mounting structures for rooftop and ground-mounted systems — designed, fabricated and installed in one.</p></div>
+    <div class="service-card"><span class="svc-num">04</span><svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><div class="svc-name">Structural Engineering</div><p class="svc-desc">Steel structure design, engineering and erection — from concept to commissioning for industrial and commercial clients.</p></div>
+    <div class="service-card"><span class="svc-num">05</span><svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 22V9a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4v13"/><path d="M7 22V12h10v10"/></svg><div class="svc-name">PEB Structures</div><p class="svc-desc">Pre-Engineered Building systems — faster, cost-effective steel frame construction for warehouses, factories and sheds.</p></div>
+    <div class="service-card"><span class="svc-num">06</span><svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><div class="svc-name">Industrial Construction</div><p class="svc-desc">Full turnkey industrial construction — structural design, fabrication, civil coordination and project management.</p></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-left">
+    <div class="section-eyebrow reveal-left">Who We Are</div>
+    <h2 class="section-h2 reveal-left" style="margin-bottom:24px;">Deepu<br/>Siva <em>Pvt</em><br/><em>Ltd</em></h2>
+    <p class="about-desc reveal-left">Founded in 2017 by Rajavel Palaniyappan and Deepadharsan Rajavel, we've grown into one of Coimbatore's trusted names for industrial fabrication and solar mounting structures. Every project we touch is built to last.</p>
+    <div class="about-tag reveal-left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Coimbatore, Tamil Nadu</div>
+  </div>
+  <div class="stats-grid reveal-right">
+    <div class="stat-box" data-label="Founded"><div class="stat-big">2017</div><div class="stat-label">Year Established</div></div>
+    <div class="stat-box" data-label="Delivered"><div class="stat-big counter" data-target="500">0</div><div class="stat-label">Projects Completed</div></div>
+    <div class="stat-box" data-label="Experience"><div class="stat-big counter" data-target="8">0</div><div class="stat-label">Years Experience</div></div>
+    <div class="stat-box" data-label="Happy"><div class="stat-big counter" data-target="50">0</div><div class="stat-label">Clients Trust Us</div></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-eyebrow reveal">Our Work</div>
+  <h2 class="section-h2 reveal">Selected<br/><em>Projects</em></h2>
+  <div class="projects-grid">
+    <div class="proj-card"><div class="proj-bg">🏭</div><div class="proj-card-inner"><div class="proj-cat">Industrial Roofing</div><div class="proj-name">Factory Shed Coimbatore</div></div><div class="proj-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+    <div class="proj-card"><div class="proj-bg">☀️</div><div class="proj-card-inner"><div class="proj-cat">Solar Structures</div><div class="proj-name">50kW Rooftop Mount</div></div><div class="proj-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+    <div class="proj-card"><div class="proj-bg">🔩</div><div class="proj-card-inner"><div class="proj-cat">Metal Fabrication</div><div class="proj-name">Steel Gate &amp; Railing</div></div><div class="proj-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+    <div class="proj-card"><div class="proj-bg">🏗️</div><div class="proj-card-inner"><div class="proj-cat">PEB Structure</div><div class="proj-name">Warehouse Erection</div></div><div class="proj-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+    <div class="proj-card"><div class="proj-bg">⚡</div><div class="proj-card-inner"><div class="proj-cat">Solar + Structure</div><div class="proj-name">Ground Mount 100kW</div></div><div class="proj-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+    <div class="proj-card"><div class="proj-bg">🏢</div><div class="proj-card-inner"><div class="proj-cat">Industrial Construction</div><div class="proj-name">Full Turnkey Factory</div></div><div class="proj-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+  </div>
+</section>
+
+<section id="solar">
+  <div>
+    <div class="solar-badge reveal">🏛️ Government Scheme</div>
+    <h2 class="solar-h2 reveal">Get Up to<br/><span>₹78,000</span><br/>Subsidy</h2>
+    <p class="about-desc reveal">PM Surya Ghar: Muft Bijli Yojana puts money directly into your bank account after solar installation. Deepu Siva handles everything.</p>
+    <div class="solar-btns reveal">
+      <a href="scheme-timer.html" class="btn-primary" style="background:var(--rust);">Check Scheme Deadline <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <a href="solar-calculator.html" class="btn-outline">Calculate ROI</a>
+    </div>
+  </div>
+  <div class="solar-subsidy reveal-right">
+    <div class="subsidy-amount">₹78K</div>
+    <div class="subsidy-label">Maximum Government Subsidy</div>
+    <div class="subsidy-note">Transferred directly to your Aadhaar-linked bank account via Direct Benefit Transfer (DBT) after installation.</div>
+    <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);padding:16px;"><div style="font-family:var(--font-d);font-size:32px;color:var(--rust);">₹30K</div><div style="font-size:11px;color:var(--muted);margin-top:4px;">1kW System</div></div>
+      <div style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);padding:16px;"><div style="font-family:var(--font-d);font-size:32px;color:var(--rust);">₹60K</div><div style="font-size:11px;color:var(--muted);margin-top:4px;">2kW System</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-info">
+    <div class="section-eyebrow reveal">Get In Touch</div>
+    <h2 class="reveal">Let's Build<br/><em>Together</em></h2>
+    <div class="contact-item reveal"><svg class="contact-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.56a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><div class="contact-label">Phone</div><div class="contact-val"><a href="tel:+918489090666">+91 84890 90666</a></div></div></div>
+    <div class="contact-item reveal"><svg class="contact-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:contact@deepusiva.com">contact@deepusiva.com</a></div></div></div>
+    <div class="contact-item reveal"><svg class="contact-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><div class="contact-label">Location</div><div class="contact-val">Coimbatore, Tamil Nadu, India</div></div></div>
+    <div class="contact-item reveal"><svg class="contact-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg><div><div class="contact-label">WhatsApp</div><div class="contact-val"><a href="https://wa.me/918489090666" target="_blank">+91 84890 90666</a></div></div></div>
+  </div>
+  <div class="reveal-right">
+    <div class="form-group"><label class="form-label">Your Name</label><input type="text" class="form-input" id="v2-name" placeholder="Rajavel Kumar"/></div>
+    <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" id="v2-phone" placeholder="+91 98765 43210"/></div>
+    <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" id="v2-email" placeholder="you@company.com"/></div>
+    <div class="form-group"><label class="form-label">What do you need?</label><textarea class="form-input" id="v2-msg" placeholder="Tell us about your project..."></textarea></div>
+    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="handleV2Contact()">Send Message <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+  </div>
+</section>
+
+<footer>
+  <a href="#hero" class="foot-logo">DS</a>
+  <ul class="foot-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="solar-calculator.html">Solar</a></li>
+    <li><a href="scheme-timer.html">Subsidy</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="login.html">Portal</a></li>
+  </ul>
+  <p class="foot-copy">© 2026 Deepu Siva Private Limited &nbsp;·&nbsp; Coimbatore, TN</p>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!prefersReducedMotion) {
+  // CUSTOM CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; gsap.set(cursor,{x:mx,y:my}); });
+  (function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; gsap.set(ring,{x:rx,y:ry}); requestAnimationFrame(loop); })();
+  document.querySelectorAll('a,button,.proj-card,.service-card').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
+
+  // PROGRESS BAR
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100;
+    document.getElementById('progress-bar').style.width = pct+'%';
+  });
+
+  // NAV
+  window.addEventListener('scroll', () => document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY>60));
+
+  // MONOGRAM SPIN
+  gsap.to('.hero-monogram', {rotation:360, duration:120, ease:'none', repeat:-1});
+
+  // HERO ENTRANCE
+  const tl = gsap.timeline({delay:.3});
+  tl.from('.hero-h1 .word', {yPercent:100, opacity:0, duration:1, ease:'power4.out', stagger:.12})
+    .to('.hero-tag',         {opacity:1, y:0, duration:.8, ease:'power3.out'}, '-=.5')
+    .to('.hero-sub',         {opacity:1, y:0, duration:.8, ease:'power3.out'}, '-=.5')
+    .to('.hero-btns',        {opacity:1, y:0, duration:.8, ease:'power3.out'}, '-=.5')
+    .to('.hero-stats',       {opacity:1, y:0, duration:.8, ease:'power3.out'}, '-=.4')
+    .to('.hero-scroll-hint', {opacity:1, duration:.8, ease:'power3.out'}, '-=.3');
+
+  // HERO STAT COUNTERS
+  document.querySelectorAll('.hero-stat-num[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    setTimeout(() => {
+      gsap.fromTo({val:0}, {val:target, duration:2, ease:'power2.out', delay:1.2,
+        onUpdate: function(){ el.textContent = Math.round(this.targets()[0].val); }
+      });
+    }, 0);
+  });
+
+  // MAGNETIC BUTTONS
+  document.querySelectorAll('.btn-primary,.btn-outline').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      gsap.to(btn, {x:(e.clientX-r.left-r.width/2)*.25, y:(e.clientY-r.top-r.height/2)*.25, duration:.4, ease:'power2.out'});
+    });
+    btn.addEventListener('mouseleave', () => gsap.to(btn, {x:0, y:0, duration:.6, ease:'elastic.out(1,.5)'}));
+  });
+
+  // HERO PARALLAX
+  gsap.to('.hero-monogram', {yPercent:30, ease:'none', scrollTrigger:{trigger:'#hero', start:'top top', end:'bottom top', scrub:1}});
+
+  // SCROLL REVEALS
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.fromTo(el, {opacity:0,y:50}, {opacity:1,y:0, duration:.9, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 85%', toggleActions:'play none none none'}});
+  });
+  gsap.utils.toArray('.reveal-left').forEach(el => {
+    gsap.fromTo(el, {opacity:0,x:-50}, {opacity:1,x:0, duration:.9, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 85%', toggleActions:'play none none none'}});
+  });
+  gsap.utils.toArray('.reveal-right').forEach(el => {
+    gsap.fromTo(el, {opacity:0,x:50}, {opacity:1,x:0, duration:.9, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 85%', toggleActions:'play none none none'}});
+  });
+
+  // STAGGER CARDS
+  gsap.fromTo('.service-card', {opacity:0,y:40}, {opacity:1,y:0, duration:.7, ease:'power3.out', stagger:.08,
+    scrollTrigger:{trigger:'.services-grid', start:'top 80%'}});
+  gsap.fromTo('.proj-card', {opacity:0,scale:.92}, {opacity:1,scale:1, duration:.7, ease:'power3.out', stagger:.1,
+    scrollTrigger:{trigger:'.projects-grid', start:'top 80%'}});
+  gsap.fromTo('.stat-box', {opacity:0,y:30}, {opacity:1,y:0, duration:.7, ease:'power3.out', stagger:.1,
+    scrollTrigger:{trigger:'.stats-grid', start:'top 80%'}});
+
+  // COUNTERS
+  document.querySelectorAll('.counter').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    ScrollTrigger.create({trigger:el, start:'top 85%', onEnter:() => {
+      gsap.fromTo({val:0}, {val:target, duration:1.8, ease:'power2.out',
+        onUpdate:function(){ el.textContent = Math.round(this.targets()[0].val).toLocaleString('en-IN'); }});
+    }});
+  });
+
+} else {
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => { el.style.opacity=1; el.style.transform='none'; });
+}
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (!t) return;
+    e.preventDefault();
+    const navH = document.getElementById('mainNav').offsetHeight + document.querySelector('.v1-bar').offsetHeight;
+    window.scrollTo({top: t.getBoundingClientRect().top + window.pageYOffset - navH - 10, behavior:'smooth'});
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// NAV ACTIVE
+const secs = document.querySelectorAll('section[id]');
+const nls  = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur='';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  nls.forEach(a => { a.style.color = a.getAttribute('href')==='#'+cur ? 'var(--lime)' : ''; });
+});
+
+function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+
+function handleV2Contact() {
+  const name  = document.getElementById('v2-name')?.value.trim() || '';
+  const phone = document.getElementById('v2-phone')?.value.trim() || '';
+  const email = document.getElementById('v2-email')?.value.trim() || '';
+  const msg   = document.getElementById('v2-msg')?.value.trim() || '';
+  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+  const wa = encodeURIComponent(`Hi Deepu Siva Pvt Ltd!\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nProject:\n${msg}`);
+  window.open('https://wa.me/918489090666?text='+wa, '_blank');
+}
+</script>
+</body>
+</html>
